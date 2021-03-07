@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import ToDo from '../Components/ToDo.js';
+import Challenge from '../Components/Challenge.js';
 
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
@@ -21,10 +21,10 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 export default function App({ navigation, route }) {
   const [checked, setChecked] = useState(false);
 
-  const { text, deleteToDo } = route.params;
+  const { text, deleteChallenge, index} = route.params;
 
   const deleteAndGoToList = async () => {
-    await deleteToDo();
+    await deleteChallenge(index);
     navigation.navigate('Home');
   };
 
@@ -35,7 +35,7 @@ export default function App({ navigation, route }) {
         checked
         textColor="#000"
         fillColor="red"
-        text={'done!'}
+        text={'Delete'}
         onPress={(checked) => deleteAndGoToList()}
       />
     </SafeAreaView>

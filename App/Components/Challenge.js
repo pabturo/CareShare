@@ -7,7 +7,7 @@ import GestureRecognizer, {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useFonts } from 'expo-font';
 
-export default function ToDo(props) {
+export default function Challenge(props) {
   const [checked, setChecked] = useState(false);
 
   const [loaded, error] = useFonts({ 
@@ -15,10 +15,10 @@ export default function ToDo(props) {
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
   
-  const { text, deleteToDo } = props;
+  const { text, deleteChallenge } = props;
 
   return (
-    <View style={styles.todo}>
+    <View style={styles.Challenge}>
 
         <Image 
           source={require('../../assets/book.png')}  
@@ -34,7 +34,7 @@ export default function ToDo(props) {
 }
 
 const styles = StyleSheet.create({
-  todo: {
+  Challenge: {
     flexDirection: 'row',
     // backgroundColor: 'lightgray',
     alignItems: 'center',

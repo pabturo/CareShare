@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ViewTodo from '../Screens/ViewTodoScreen';
+import ViewChallenge from '../Screens/ViewChallengeScreen';
 import ListScreen from '../Screens/ListScreen';
 import { useFonts } from 'expo-font';
 
@@ -30,7 +30,7 @@ export default function Navigator() {
         />
         <Stack.Screen
           name="View To-Do"
-          component={ViewTodo}
+          component={ViewChallenge}
         />
       </Stack.Navigator>
     </NavigationContainer>

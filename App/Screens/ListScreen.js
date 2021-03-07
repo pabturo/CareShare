@@ -11,44 +11,45 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import ToDo from '../Components/ToDo.js';
+import Challenge from '../Components/Challenge.js';
 
 import { Ionicons } from '@expo/vector-icons';
 
 export default function App({ navigation }) {
-  const [todos, setTodos] = useState([]);
+  const [Challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
 
-  const addTodo = () => {
+  const addChallenge = () => {
     // Deep copy of array avoids any state mutation instead of state update rerender issues
     if (text != '') {
-      let newTodos = [...todos];
-      newTodos.push(text);
-      setTodos(newTodos);
+      let newChallenges = [...Challenges];
+      newChallenges.push(text);
+      setChallenges(newChallenges);
       setText('');
     }
   };
 
   const delay = (time) => new Promise((response) => setTimeout(response, time));
 
-  const deleteToDo = async (index) => {
+  const deleteChallenge = async (index) => {
     await delay(100);
-    let newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    let newChallenges = [...Challenges];
+    newChallenges.splice(index, 1);
+    setChallenges(newChallenges);
     console.log('deleted item from list');
   };
 
-  const renderToDo = ({ index, item }) => {
+  const renderChallenge = ({ index, item }) => {
     return (
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('View To-Do', {
             text: item,
-            deleteToDo: deleteToDo,
+            deleteChallenge: deleteChallenge,
+            index: index,
           })
         }>
-        <ToDo text={item} deleteToDo={() => deleteToDo(index)} />
+        <Challenge text={item} deleteChallenge={() => deleteChallenge(index)} />
       </TouchableOpacity>
     );
   };
@@ -64,8 +65,8 @@ export default function App({ navigation }) {
       </Text>
       <View style={styles.flatlist}>
         <FlatList
-          data={todos}
-          renderItem={renderToDo}
+          data={Challenges}
+          renderItem={renderChallenge}
           keyExtractor={(item, index) => keyExtractor(index)}
         />
       </View>
@@ -78,14 +79,14 @@ export default function App({ navigation }) {
           onChangeText={(text) => setText(text)}
           value={text}
         />
-
+        {/* Temporary "add" button to create challenges */}
         <Ionicons.Button
           name="ios-add"
           size={24}
           color="white"
           backgroundColor='#2FDA77'
           borderRadius={100}
-          onPress={() => addTodo()}>
+          onPress={() => addChallenge()}>
           Temp Add
         </Ionicons.Button>
       </KeyboardAvoidingView>
