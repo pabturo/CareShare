@@ -15,7 +15,7 @@ export default function Challenge(props) {
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
   
-  const { text, deleteChallenge } = props;
+  const { challengeName } = props;
 
   return (
     <View style={styles.Challenge}>
@@ -25,8 +25,8 @@ export default function Challenge(props) {
           style={styles.iconPicture} 
         />
         <View style={styles.groupText}>
-          <Text style={styles.groupTitle}>{text}</Text>
-          <Text style={styles.groupSubtitle}>{'Make sure to check in!'}</Text>
+          <Text style={styles.challengeName}>{challengeName}</Text>
+          <Text style={styles.checkInStatus}>{'Make sure to check in!'}</Text>
         </View>
     </View>
 
@@ -42,19 +42,19 @@ const styles = StyleSheet.create({
     borderBottomWidth :0.3,
     borderBottomColor: '#E7E7E7',
     padding: 8,
-    paddingLeft: 16,
+    paddingHorizontal: 20,
   },
   groupText: {
     flexDirection: 'column', 
     paddingLeft: 16,
     width: '80%'
   },
-  groupTitle: {
+  challengeName: {
     fontFamily:'NunitoBold',
     fontSize: 20,
     color: '#555555',
   },
-  groupSubtitle: {
+  checkInStatus: {
     fontFamily:'Nunito',
     fontSize: 18,
     color: '#555555',

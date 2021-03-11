@@ -6,6 +6,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ViewChallenge from '../Screens/ViewChallengeScreen';
+import NewChallenge from '../Screens/NewChallenge';
 import ListScreen from '../Screens/ListScreen';
 import { useFonts } from 'expo-font';
 
@@ -29,8 +30,12 @@ export default function Navigator() {
           }}
         />
         <Stack.Screen
-          name="View To-Do"
+          name="View Challenge"
           component={ViewChallenge}
+        />
+        <Stack.Screen
+          name="New Challenge"
+          component={NewChallenge}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -39,8 +44,9 @@ export default function Navigator() {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40,
+    fontSize: 35,
     fontFamily: 'NunitoSemiBold',
+    paddingBottom: 56,
     textAlign: 'center',
     color: '#2FDA77',
     letterSpacing: -2,

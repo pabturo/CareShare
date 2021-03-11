@@ -21,7 +21,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 export default function App({ navigation, route }) {
   const [checked, setChecked] = useState(false);
 
-  const { text, deleteChallenge, index} = route.params;
+  const {challengeName, challengeDetails, deleteChallenge, index} = route.params;
 
   const deleteAndGoToList = async () => {
     await deleteChallenge(index);
@@ -30,7 +30,8 @@ export default function App({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{challengeName}</Text>
+      <Text style={styles.text}>{challengeDetails}</Text>
       <BouncyCheckbox
         checked
         textColor="#000"
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   text: {
-    fontSize: 50,
+    fontSize: 20,
     fontFamily: 'Arial',
     textAlign: 'center',
   },
