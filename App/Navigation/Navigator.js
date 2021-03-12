@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
+  Button
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,10 +11,11 @@ import NewChallenge from '../Screens/NewChallenge';
 import ListScreen from '../Screens/ListScreen';
 import { useFonts } from 'expo-font';
 
+
 const Stack = createStackNavigator();
 
 export default function Navigator() {
-  const [loaded, error] = useFonts({ 
+  const [loaded, error] = useFonts({
     Montserrat: require('../Assets/Montserrat.ttf'),
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')
@@ -25,9 +27,14 @@ export default function Navigator() {
         <Stack.Screen
           name="Home"
           component={ListScreen}
-          options={{
-            headerTitle: () => <Text style={styles.title}>CareShare</Text>,
-          }}
+          options={() => ({
+            title: 'Awesome app',
+            headerLeft: () => (
+              <Button
+                title = "="
+                onPress={() => alert("hi")} />
+            ),
+          })}
         />
         <Stack.Screen
           name="View Challenge"
