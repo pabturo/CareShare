@@ -11,13 +11,14 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
+
 import Challenge from '../Components/Challenge.js';
 
-import { Ionicons } from '@expo/vector-icons';
 
 export default function App({ navigation }) {
   const [challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
+
 
   const addChallenge = () => {
     // Deep copy of array avoids any state mutation instead of state update rerender issues
@@ -32,13 +33,6 @@ export default function App({ navigation }) {
       setText('');
     }
   };
-
-  // useEffect(() => {
-  //   console.log("Current challenges", challenges);
-  //   // return () => {
-  //   //   console.log("cleanup - on unmount.");
-  //   // };
-  // }, [challenges]);
 
   const delay = (time) => new Promise((response) => setTimeout(response, time));
 
@@ -77,9 +71,9 @@ export default function App({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
 
-      <Text style={{padding:10}}>
+      {/* <Text style={{padding:10}}>
         [INSERT FRIENDS/COMPLETED/ONGOING]
-      </Text>
+      </Text> */}
 
       {/* List of Challenges */}
       <View style={styles.flatlist}>
@@ -100,27 +94,19 @@ export default function App({ navigation }) {
           value={text}
         />
         {/* Temporary "add" button to New Challenges */}
-        <Ionicons.Button
-          name="ios-add"
-          size={24}
-          color="white"
-          backgroundColor='#2FDA77'
-          borderRadius={100}
+        <Button
+          title='Create'
           onPress={() => addChallenge()}
           >
           Temp Add
-        </Ionicons.Button>
+        </Button>
         {/* Go to Create New Challenge Screen */}
-        <Ionicons.Button
-          name="ios-add"
-          size={24}
-          color="white"
-          backgroundColor='#2FDA77'
-          borderRadius={100}
+        <Button
+          title='New Challenge Sc.'
           onPress={() => goNewChallenge()}
           >
-          Create Ch.
-        </Ionicons.Button>
+          
+        </Button>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

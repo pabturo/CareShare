@@ -36,7 +36,6 @@ export default function Challenge(props) {
 const styles = StyleSheet.create({
   Challenge: {
     flexDirection: 'row',
-    // backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'flex-start',
     borderBottomWidth :0.3,

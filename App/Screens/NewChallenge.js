@@ -5,27 +5,48 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
+  // Picker,
   TextInput,
-  Picker,
   Button,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import Challenge from '../Components/Challenge.js';
+// import Challenge from '../Components/Challenge.js';
 
-import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {Picker} from '@react-native-picker/picker';
+
+//------------------------------------------------------
+import DropDownPicker from 'react-native-dropdown-picker';
+
+import Icon from 'react-native-vector-icons/Feather';
+//------------------------------------------------------
+
+
+
+
 
 export default function App({ navigation, route }) {
+  const [loaded, error] = useFonts({ 
+    Nunito: require('../Assets/Nunito-Regular.ttf'),
+    NunitoBold: require('../Assets/Nunito-Bold.ttf')
+  });
 
-  // const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [challengeName, setChallengeName] = useState('');
   const [challengeDetails, setChallengeDetails] = useState('');
+  const [tags, setTags] = useState('');
+  // ----------------------------
+  const [country, setCountry] = useState("Every day");
+  
+
+  // ----------------------------
 
   const {challenges, setChallenges} = route.params;
+
 
   const createNewChallenge = async () => {
     // await deleteChallenge(index);
@@ -38,30 +59,64 @@ export default function App({ navigation, route }) {
       newChallenges.push(obj);
       setChallenges(newChallenges);
       navigation.navigate('Home');
-  }
+    } else {
+      alert('Challenge name and details cannot be empty');
+      setChecked(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>{"CREATE A CHALLENGE"}</Text>
       <TextInput
           style={styles.textinput}
           onChangeText={(challengeName) => setChallengeName(challengeName)}
           value={challengeName}
+          multiline = {true}
+          placeholder={"Challenge name ..."}
         />
       <TextInput
           style={styles.textinput}
           onChangeText={(challengeDetails) => setChallengeDetails(challengeDetails)}
           value={challengeDetails}
+          multiline = {true}
+          placeholder={"Challenge details ..."}
         />
-    
-      <BouncyCheckbox
-        checked
+      <TextInput
+        style={styles.tags}
+        onChangeText={(tags) => setTags(tags)}
+        value={tags}
+        multiline = {true}
+        placeholder={"Enter Tags ..."}
+      />
+      <DropDownPicker
+          items={[
+              {label: 'Every day', value: 'Every day'},
+              {label: 'Every week', value: 'Every week'},
+              {label: 'Every month', value: 'Every month'},
+          ]}
+          selectedLabelStyle={{
+            color: '#39739d'
+        }}
+          defaultValue={country}
+          placeholder={'mksdmksdmk'}
+          containerStyle={{height: 40, width: 200}}
+          style={{backgroundColor: '#fafafa'}}
+          itemStyle={{
+              justifyContent: 'flex-start'
+          }}
+          dropDownStyle={{backgroundColor: '#fafafa'}}
+          onChangeItem={(item) => setCountry(item.value)}
+      />
+        
+        
+      <View styles={{position: 'absolute',
+          bottom: 0}}>
+      <Button
         textColor="#000"
-        fillColor="red"
-        text={'Post'}
+        title='Launch Challenge'
         onPress={(checked) => createNewChallenge()}
       />
+      </View>
     </SafeAreaView>
   );
 }
@@ -75,27 +130,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textinput: {
-    height: 40,
-    textAlign: 'center',
-    borderColor: 'gray',
-    width: '35%',
-    marginRight: 5,
-    borderWidth: 1,
-    borderRadius: 100,
-  },
-  text: {
+    flex: 0.15,
     fontSize: 20,
-    fontFamily: 'Arial',
-    textAlign: 'center',
+    height: 100,
+    margin: 5,
+    width: '90%',
+    borderWidth: 1,
+    color: '#555555',
+    fontFamily: 'Nunito',
   },
-  picker: {
-    height: 50,
-    width: 150,
-  },
-  dropdown: {
-    flex: 0.2,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: 'flex-start',
+  tags: {
+    fontSize: 20,
+    height: 40,
+    margin: 5,
+    width: '90%',
+    borderWidth: 1,
+    color: '#555555',
+    fontFamily: 'Nunito',
   },
 });

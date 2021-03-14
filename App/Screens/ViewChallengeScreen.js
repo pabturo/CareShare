@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import Challenge from '../Components/Challenge.js';
 
-import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -30,8 +29,8 @@ export default function App({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>{challengeName}</Text>
-      <Text style={styles.text}>{challengeDetails}</Text>
+      <Text style={styles.text}>Challenge name: {challengeName}</Text>
+      <Text style={styles.text}>Challenge details: {challengeDetails}</Text>
       <BouncyCheckbox
         checked
         textColor="#000"
