@@ -24,9 +24,7 @@ export default function App({ navigation, route }) {
 
   const deleteAndGoToList = async () => {
     await deleteChallenge(index);
-    let shouldAdd = false;
-    let newChallenge = {}
-    navigation.navigate('Home',{shouldAdd, newChallenge} );
+    navigation.navigate('Home');
   };
 
   return (
@@ -37,7 +35,7 @@ export default function App({ navigation, route }) {
         checked
         textColor="#000"
         fillColor="red"
-        text={'Delete'}
+        text={'Remove item'}
         onPress={(checked) => deleteAndGoToList()}
       />
     </SafeAreaView>

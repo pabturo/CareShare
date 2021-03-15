@@ -14,41 +14,12 @@ import {
 
 import Challenge from '../Components/Challenge.js';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function App({ navigation, route}) {
   const [challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
-
-  const {newChallenge, setNewChallenge} = route.params ? route.params : {}; 
-  var localShouldAdd = false;
-
-  useEffect(() => {
-    if (newChallenge != {} && setNewChallenge != undefined) {
-      // let newChallenges = [...challenges];
-      // newChallenges.push(newChallenge);
-      // setChallenges(newChallenges); 
-      
-      console.log(newChallenge);
-      setNewChallenge({});
-    } else {
-      console.log("rip")
-    }
-  }, [newChallenge]);
-
-  const addChallenge = () => {
-    // Deep copy of array avoids any state mutation instead of state update rerender issues
-    if (text != '') {
-      let newChallenges = [...challenges];
-      let obj = {
-        name : text,
-        details : "Default"
-      };
-      newChallenges.push(obj);
-      setChallenges(newChallenges);
-      setText('');
-    }
-  };
 
   const delay = (time) => new Promise((response) => setTimeout(response, time));
 
@@ -57,7 +28,7 @@ export default function App({ navigation, route}) {
     let newChallenges = [...challenges];
     newChallenges.splice(index, 1);
     setChallenges(newChallenges);
-    console.log('deleted item from list');
+    setStorage(newChallenges);
   };
 
   const goNewChallenge = () => {
@@ -75,7 +46,7 @@ export default function App({ navigation, route}) {
             index: index,
           })
         }>
-        <Challenge challengeName={item.name} deleteChallenge={() => deleteChallenge(index)} />
+        <Challenge challengeName={item.name}/>
       </TouchableOpacity>
     );
   };
@@ -84,9 +55,77 @@ export default function App({ navigation, route}) {
     return index.toString();
   };
 
+  // const getAsyncChallenges = async () => {
+  //   try {
+  //     const list = await AsyncStorage.getItem('challenges');
+  //     if (list !== null) {
+  //       // We have data!!
+  //       console.log("We have data! " + list);
+  //       let dummyList = [...list];
+  //       await AsyncStorage.clear();
+  //       console.log("Data cleared");
+  //       return dummyList;
+  //     } else {
+  //       console.log("No data...")
+  //       let dummyList = [];
+  //       await AsyncStorage.setItem('challenges',dummyList);
+  //       return dummyList;
+  //     }
+  //   } catch (error) {
+  //     console.log("Error while retrieving data");
+  //     return [];
+  //   }
+  // };
+
+  const clearChallenges = async () => {
+    AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+  }
+  const addChallenge = async () => {
+    // Deep copy of array avoids any state mutation instead of state update rerender issues
+    
+    if (text != '') {
+      let newChallenges = [...challenges];
+      let obj = {
+        name : text,
+        details : "Default"
+      };
+      newChallenges.push(obj);
+      setChallenges(newChallenges);
+      setText('');
+      setStorage(newChallenges);
+    }
+  };
+
+  const setChallengesFromStorage = (challenges_string) => {
+    setChallenges(JSON.parse(challenges_string));
+  };
+
+  const readChallenges = async () => {
+    try {
+      const storage_challenges = await AsyncStorage.getItem('challenges');
+      if (storage_challenges !== null) {
+        setChallengesFromStorage(storage_challenges);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    readChallenges();
+  }, [challenges]);
+
+  const setStorage = async (newValue) => {
+    try {
+      await AsyncStorage.setItem('challenges', JSON.stringify(newValue) )
+    } catch (e) {
+      console.error(e)
+    }
+  };
+  
+
   return (
     <SafeAreaView style={styles.container}>
-
 
       {/* List of Challenges */}
       <View style={styles.flatlist}>
@@ -101,7 +140,7 @@ export default function App({ navigation, route}) {
         style={styles.textinputrow}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         
-        {/* <TextInput
+        <TextInput
           style={styles.textinput}
           onChangeText={(text) => setText(text)}
           value={text}
@@ -111,7 +150,7 @@ export default function App({ navigation, route}) {
           onPress={() => addChallenge()}
           >
           Temp Add
-        </Button> */}
+        </Button>
 
         <Button
           title='+'

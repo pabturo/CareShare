@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import { useFonts } from 'expo-font';
 // import { createStackNavigator } from '@react-navigation/stack';
 // import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Picker} from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //------------------------------------------------------
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -39,17 +40,36 @@ export default function App({ navigation, route }) {
   const [challengeName, setChallengeName] = useState('');
   const [challengeDetails, setChallengeDetails] = useState('');
   const [tags, setTags] = useState('');
-  // ----------------------------
   const [country, setCountry] = useState("Every day");
   
+  // const {challenges, setChallenges} = route.params;
 
-  // ----------------------------
-
-  const {challenges, setChallenges} = route.params;
-
+  const [challenges, setChallenges] = useState([]);
+  const setChallengesFromStorage = (challenges_string) => {
+    setChallenges(JSON.parse(challenges_string));
+  }
+  const readChallenges = async () => {
+    try {
+      const storage_challenges = await AsyncStorage.getItem('challenges');
+      if (storage_challenges !== null) {
+        setChallengesFromStorage(storage_challenges);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  const setStorage = async (newValue) => {
+    try {
+      await AsyncStorage.setItem('challenges', JSON.stringify(newValue) )
+    } catch (e) {
+      console.error(e)
+    }
+  };
+  useEffect(() => {
+    readChallenges();
+  }, [challenges]);
 
   const createNewChallenge = async () => {
-    // await deleteChallenge(index);
     if (challengeName != '' && challengeDetails != ''){
       let newChallenges = [...challenges];
       let obj = {
@@ -58,6 +78,7 @@ export default function App({ navigation, route }) {
       };
       newChallenges.push(obj);
       setChallenges(newChallenges);
+      setStorage(newChallenges);
       navigation.navigate('Home');
     } else {
       alert('Challenge name and details cannot be empty');
