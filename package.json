@@ -12,6 +12,7 @@
     "@react-native-community/checkbox": "*",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-picker/picker": "^1.9.12",
+    "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
     "expo": "^40.0.1",

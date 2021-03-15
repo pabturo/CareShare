@@ -26,7 +26,7 @@ export default function Challenge(props) {
         />
         <View style={styles.groupText}>
           <Text style={styles.challengeName}>{challengeName}</Text>
-          <Text style={styles.checkInStatus}>{'Make sure to check in!'}</Text>
+          <Text style={styles.checkInStatus}>{'Make sure to check in!!!'}</Text>
         </View>
     </View>
 

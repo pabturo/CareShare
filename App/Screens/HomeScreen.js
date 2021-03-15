@@ -13,12 +13,28 @@ import {
 } from 'react-native';
 
 import Challenge from '../Components/Challenge.js';
+import { Ionicons } from '@expo/vector-icons';
 
 
-export default function App({ navigation }) {
+export default function App({ navigation, route}) {
   const [challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
 
+  const {newChallenge, setNewChallenge} = route.params ? route.params : {}; 
+  var localShouldAdd = false;
+
+  useEffect(() => {
+    if (newChallenge != {} && setNewChallenge != undefined) {
+      // let newChallenges = [...challenges];
+      // newChallenges.push(newChallenge);
+      // setChallenges(newChallenges); 
+      
+      console.log(newChallenge);
+      setNewChallenge({});
+    } else {
+      console.log("rip")
+    }
+  }, [newChallenge]);
 
   const addChallenge = () => {
     // Deep copy of array avoids any state mutation instead of state update rerender issues
@@ -71,9 +87,6 @@ export default function App({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* <Text style={{padding:10}}>
-        [INSERT FRIENDS/COMPLETED/ONGOING]
-      </Text> */}
 
       {/* List of Challenges */}
       <View style={styles.flatlist}>
@@ -88,24 +101,22 @@ export default function App({ navigation }) {
         style={styles.textinputrow}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         
-        <TextInput
+        {/* <TextInput
           style={styles.textinput}
           onChangeText={(text) => setText(text)}
           value={text}
         />
-        {/* Temporary "add" button to New Challenges */}
         <Button
           title='Create'
           onPress={() => addChallenge()}
           >
           Temp Add
-        </Button>
-        {/* Go to Create New Challenge Screen */}
+        </Button> */}
+
         <Button
-          title='New Challenge Sc.'
+          title='+'
           onPress={() => goNewChallenge()}
           >
-          
         </Button>
       </KeyboardAvoidingView>
     </SafeAreaView>

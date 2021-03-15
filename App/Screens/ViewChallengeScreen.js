@@ -24,7 +24,9 @@ export default function App({ navigation, route }) {
 
   const deleteAndGoToList = async () => {
     await deleteChallenge(index);
-    navigation.navigate('Home');
+    let shouldAdd = false;
+    let newChallenge = {}
+    navigation.navigate('Home',{shouldAdd, newChallenge} );
   };
 
   return (
