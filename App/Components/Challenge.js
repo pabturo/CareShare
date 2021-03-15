@@ -10,19 +10,19 @@ import { useFonts } from 'expo-font';
 export default function Challenge(props) {
   const [checked, setChecked] = useState(false);
 
-  const [loaded, error] = useFonts({ 
+  const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
-  
-  const { challengeName } = props;
+
+  const { challengeIcon, challengeName } = props;
 
   return (
     <View style={styles.Challenge}>
 
-        <Image 
-          source={require('../../assets/book.png')}  
-          style={styles.iconPicture} 
+        <Image
+          source={{ uri: challengeIcon }}
+          style={styles.iconPicture}
         />
         <View style={styles.groupText}>
           <Text style={styles.challengeName}>{challengeName}</Text>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   groupText: {
-    flexDirection: 'column', 
+    flexDirection: 'column',
     paddingLeft: 16,
     width: '80%'
   },
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   iconPicture: {
-    width: 75, 
-    height: 75, 
+    width: 75,
+    height: 75,
     borderRadius: 100
   },
 });

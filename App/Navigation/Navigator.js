@@ -13,7 +13,7 @@ import { useFonts } from 'expo-font';
 const Stack = createStackNavigator();
 
 export default function Navigator() {
-  const [loaded, error] = useFonts({ 
+  const [loaded, error] = useFonts({
     Montserrat: require('../Assets/Montserrat.ttf'),
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')

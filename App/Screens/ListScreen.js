@@ -26,7 +26,8 @@ export default function App({ navigation }) {
       let newChallenges = [...challenges];
       let obj = {
         name : text,
-        details : "Default"
+        details : "Default",
+        cover: null,
       };
       newChallenges.push(obj);
       setChallenges(newChallenges);
@@ -53,13 +54,14 @@ export default function App({ navigation }) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('View Challenge', {
+            challengeIcon: item.cover,
             challengeName: item.name,
             challengeDetails: item.details,
             deleteChallenge: deleteChallenge,
             index: index,
           })
         }>
-        <Challenge challengeName={item.name} deleteChallenge={() => deleteChallenge(index)} />
+        <Challenge challengeName={item.name} challengeIcon={item.cover} deleteChallenge={() => deleteChallenge(index)} />
       </TouchableOpacity>
     );
   };
@@ -87,7 +89,7 @@ export default function App({ navigation }) {
       <KeyboardAvoidingView
         style={styles.textinputrow}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        
+
         <TextInput
           style={styles.textinput}
           onChangeText={(text) => setText(text)}
@@ -105,7 +107,7 @@ export default function App({ navigation }) {
           title='New Challenge Sc.'
           onPress={() => goNewChallenge()}
           >
-          
+
         </Button>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
     borderTopWidth :0.3,
     borderTopColor: '#555555',
     justifyContent: 'center'
-    
+
   },
   textinput: {
     height: 40,
