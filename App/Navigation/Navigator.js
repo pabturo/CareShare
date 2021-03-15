@@ -43,11 +43,13 @@ export default function Navigator() {
 
   function newChallengeScreen() {
     return (
-      <newChallengeStack.Navigator>
+      <newChallengeStack.Navigator mode="modal">
         <newChallengeStack.Screen
           name="New Challenge"
-          component={explore}
-          options={{ tabBarLabel: 'New Challenge!' }}
+          component={NewChallenge}
+          options={{
+            headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+          }}
         />
       </newChallengeStack.Navigator>
     );
@@ -99,8 +101,9 @@ export default function Navigator() {
           inactiveTintColor: '#555555'
         }}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="NewChallenge" component={newChallengeScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        
         <Tab.Screen name="Explore" component={ExploreStackScreen} />
         
       </Tab.Navigator>

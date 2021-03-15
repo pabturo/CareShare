@@ -90,7 +90,7 @@ export default function App({ navigation, route}) {
         details : "Default"
       };
       newChallenges.push(obj);
-      setChallenges(newChallenges);
+      // setChallenges(newChallenges);
       setText('');
       setStorage(newChallenges);
     }
