@@ -23,7 +23,7 @@ export default function Navigator() {
   const [loaded, error] = useFonts({ 
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')
-  });
+  }); 
 
   function explore() {
     return <View />;

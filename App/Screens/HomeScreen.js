@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function App({ navigation, route}) {
+export default function App({ navigation}) {
   const [challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
 
@@ -40,13 +40,14 @@ export default function App({ navigation, route}) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('View Challenge', {
+            challengeIcon: item.cover,
             challengeName: item.name,
             challengeDetails: item.details,
             deleteChallenge: deleteChallenge,
             index: index,
           })
         }>
-        <Challenge challengeName={item.name}/>
+        <Challenge challengeName={item.name} challengeIcon={item.cover}/>
       </TouchableOpacity>
     );
   };
@@ -136,7 +137,7 @@ export default function App({ navigation, route}) {
         />
       </View>
 
-      <KeyboardAvoidingView
+      {/* <KeyboardAvoidingView
         style={styles.textinputrow}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         
@@ -157,7 +158,7 @@ export default function App({ navigation, route}) {
           onPress={() => goNewChallenge()}
           >
         </Button>
-      </KeyboardAvoidingView>
+      </KeyboardAvoidingView> */}
     </SafeAreaView>
   );
 }
