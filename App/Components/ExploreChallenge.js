@@ -10,12 +10,11 @@ import { useFonts } from 'expo-font';
 export default function Challenge(props) {
   const [checked, setChecked] = useState(false);
 
-  
   const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
-  const {challengeIcon, challengeName } = props;
+  const {challengeIcon, challengeDetails, challengeName } = props;
 
   const getIconUgly = () => {
     switch(challengeIcon) {
@@ -35,15 +34,16 @@ export default function Challenge(props) {
           return { uri: challengeIcon };
       }
   }
+
   return (
     <View style={styles.Challenge}>
         <Image 
-          source={getIconUgly()} 
+          source={getIconUgly()}
           style={styles.iconPicture} 
         />
         <View style={styles.groupText}>
           <Text style={styles.challengeName}>{challengeName}</Text>
-          <Text style={styles.checkInStatus}>{'Make sure to check in!'}</Text>
+          <Text style={styles.checkInStatus}>{challengeDetails}</Text>
         </View>
     </View>
 

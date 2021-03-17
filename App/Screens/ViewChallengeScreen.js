@@ -59,12 +59,31 @@ export default function App({ navigation, route }) {
     setexpandButton2( (expandButton2==="chevron-down") ? "chevron-up" : "chevron-down" );
   }
 
+  const getIconUgly = () => {
+    switch(challengeIcon) {
+        case "default":
+          return require('../../assets/logo.png');
+          break;
+        case "1":
+            return require('../../assets/1.png');
+            break;
+        case "2":
+            return require('../../assets/2.png');
+            break;
+        case "3":
+            return require('../../assets/3.png');
+            break;
+        default:
+          return { uri: challengeIcon };
+      }
+  }
+
   const scrollViewRef = useRef();
   return (
     <SafeAreaView style={styles.container}>
       <View style= {styles.container_title}>
         <Image
-          source= {{ uri: challengeIcon }}
+          source= {getIconUgly()}
           style = {styles.iconPicture}
         />
         <View style = {{flexDirection: 'row', alignItems:'center'}}>
@@ -179,10 +198,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   iconPicture: {
-    width: 80,
-    height: 80,
-    borderRadius: 80,
+    width: 100,
+    height: 100,
+    borderRadius: 100,
     borderColor: "#555555",
-    borderWidth: 1
+    borderWidth:0.1
   }
 });

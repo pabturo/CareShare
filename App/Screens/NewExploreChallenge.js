@@ -43,9 +43,11 @@ export default function App({ navigation, route }) {
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
 
+  const {name, details,icon} = route.params;
+
   const [checked, setChecked] = useState(false);
-  const [challengeName, setChallengeName] = useState('');
-  const [challengeDetails, setChallengeDetails] = useState('');
+  const [challengeName, setChallengeName] = useState(name);
+  const [challengeDetails, setChallengeDetails] = useState(details);
   const [tags, setTags] = useState('');
   // ----------------------------
   const [checkin, setCheckin] = useState(0);
@@ -54,6 +56,22 @@ export default function App({ navigation, route }) {
   const [linkVisible, setlinkVisible] = useState(false);
   // --------image picker--------
   const [challengeIcon, setImage] = useState("default");
+
+  const getIconUgly = () => {
+    switch(icon) {
+        case "1":
+            return require('../../assets/1.png');
+            break;
+        case "2":
+            return require('../../assets/2.png');
+            break;
+        case "3":
+            return require('../../assets/3.png');
+            break;
+        default:
+            return require('../../assets/logo.png');
+      }
+  }
 
   useEffect(() => {
     (async () => {
@@ -113,7 +131,7 @@ export default function App({ navigation, route }) {
       let obj = {
         name : challengeName,
         details : challengeDetails,
-        cover: challengeIcon,
+        cover: icon,
         visibility: challengeVisible,
         checkpoint: checkin,
         goal: goalCount
@@ -126,7 +144,7 @@ export default function App({ navigation, route }) {
       setChallengeName('');
       setChallengeDetails('');
       setImage('default');
-      navigation.navigate('Home');
+      navigation.navigate('Explore');
     } else {
       alert('Challenge name and details cannot be empty');
       // setChecked(false);
@@ -140,12 +158,6 @@ export default function App({ navigation, route }) {
     return '#2FDA7f';
   }
 
-  const getDefaultImage = () => {
-    if (challengeIcon === "default"){
-      return require('../../assets/logo.png');
-    }
-    return { uri: challengeIcon }
-  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
     
@@ -154,7 +166,7 @@ export default function App({ navigation, route }) {
           alignItems: 'center',
           justifyContent: 'center', 
           paddingVertical:20}}>
-      {challengeIcon && <Image source={getDefaultImage()} style={styles.image} />}
+      {challengeIcon && <Image source={getIconUgly()} style={styles.image} />}
       <Button title="Upload Image" onPress={pickImage} color='#2FDA7f' />
     </View>
       <View style={styles.labelalign}>
@@ -309,88 +321,88 @@ export default function App({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 10,
-    paddingTop: 20,
-  },
-  textinput: {
-    flex: 0.15,
-    fontSize: 20,
-    height: 100,
-    margin: 5,
-    width: '90%',
-    borderWidth: 1,
-    color: '#555555',
-    // fontFamily: 'Nunito',
-    padding: 5,
-    borderRadius: 5,
-    borderColor: '#aaa'
-  },
-  dropDown: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: '#aaa',
-    color: '#555555'
-  },
-  label: {
-    color:'#2FDA7f',
-    fontSize: 15,
-    paddingLeft: 14
-  },
-  labelalign:{
-    alignItems:'flex-start',
-    width:'100%'
-  },
-  tags: {
-    fontSize: 20,
-    height: 40,
-    margin: 5,
-    width: '90%',
-    borderWidth: 1,
-    color: '#555555',
-    fontFamily: 'Nunito',
-  },
-  goal: {
-    fontSize: 15,
-    padding: 5,
-    margin: 5,
-    height: '100%',
-    width: '40%',
-    borderWidth: 1,
-    borderColor: '#aaa',
-    color: '#555555',
-    fontFamily: 'Nunito',
-    borderRadius: 5
-  },
-  image: {
-    width: 150,
-    height: 150,
-    borderWidth:0.1,
-    borderRadius:200,
-  },
-  options:{
-    flexDirection:'row',
-    height:50,
-    width:'90%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingTop:0, 
-  },
-  launch:{
-    borderColor: '#2FDA7f',
-    backgroundColor: '#fff',
-    padding:10,
-    borderRadius:100,
-    borderWidth:1,
-    margin:20
-  }
-  // picker: {
-  // height: 50,
-  // width: 150,
-  // },
-
-});
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingHorizontal: 10,
+      paddingTop: 20,
+    },
+    textinput: {
+      flex: 0.15,
+      fontSize: 20,
+      height: 100,
+      margin: 5,
+      width: '90%',
+      borderWidth: 1,
+      color: '#555555',
+      // fontFamily: 'Nunito',
+      padding: 5,
+      borderRadius: 5,
+      borderColor: '#aaa'
+    },
+    dropDown: {
+      backgroundColor: 'white',
+      borderWidth: 1,
+      borderColor: '#aaa',
+      color: '#555555'
+    },
+    label: {
+      color:'#2FDA7f',
+      fontSize: 15,
+      paddingLeft: 14
+    },
+    labelalign:{
+      alignItems:'flex-start',
+      width:'100%'
+    },
+    tags: {
+      fontSize: 20,
+      height: 40,
+      margin: 5,
+      width: '90%',
+      borderWidth: 1,
+      color: '#555555',
+      fontFamily: 'Nunito',
+    },
+    goal: {
+      fontSize: 15,
+      padding: 5,
+      margin: 5,
+      height: '100%',
+      width: '40%',
+      borderWidth: 1,
+      borderColor: '#aaa',
+      color: '#555555',
+      fontFamily: 'Nunito',
+      borderRadius: 5
+    },
+    image: {
+      width: 150,
+      height: 150,
+      borderWidth:0.1,
+      borderRadius:200,
+    },
+    options:{
+      flexDirection:'row',
+      height:50,
+      width:'90%',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      paddingTop:0, 
+    },
+    launch:{
+      borderColor: '#2FDA7f',
+      backgroundColor: '#fff',
+      padding:10,
+      borderRadius:100,
+      borderWidth:1,
+      margin:20
+    }
+    // picker: {
+    // height: 50,
+    // width: 150,
+    // },
+  
+  });

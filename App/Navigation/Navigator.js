@@ -8,15 +8,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ViewChallenge from '../Screens/ViewChallengeScreen';
 import NewChallenge from '../Screens/NewChallenge';
+import NewExploreChallenge from '../Screens/NewExploreChallenge';
 import HomeScreen from '../Screens/HomeScreen';
+import ExploreScreen from '../Screens/ExploreScreen';
 import { useFonts } from 'expo-font';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const ExploreStack = createStackNavigator();
-const newChallengeStack = createStackNavigator();
+const NewChallengeStack = createStackNavigator();
 
 
 export default function Navigator() {
@@ -25,54 +27,63 @@ export default function Navigator() {
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')
   }); 
 
-  function explore() {
-    return <View />;
-  }
 
   function ExploreStackScreen() {
     return (
-      <ExploreStack.Navigator>
+      <ExploreStack.Navigator mode="modal">
         <ExploreStack.Screen
           name="Explore"
-          component={explore}
-          options={{ tabBarLabel: 'Explore!' }}
+          component={ExploreScreen}
+          options={{
+            headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+          }}
+        />
+        <ExploreStack.Screen
+          name="New Explore Challenge"
+          component={NewExploreChallenge}
+          options={{
+            headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+          }}
         />
       </ExploreStack.Navigator>
     );
   }
 
-  function newChallengeScreen() {
+  function NewChallengeScreen() {
     return (
-      <newChallengeStack.Navigator mode="modal">
-        <newChallengeStack.Screen
+      <NewChallengeStack.Navigator mode="modal">
+        <NewChallengeStack.Screen
           name="New Challenge"
           component={NewChallenge}
           options={{
             headerTitle: () => <Text style={styles.title}>CareShare</Text>,
           }}
         />
-      </newChallengeStack.Navigator>
+      </NewChallengeStack.Navigator>
     );
   }
   function HomeStackScreen() {
     return (
-      <Stack.Navigator mode="modal">
-        <Stack.Screen
+      <HomeStack.Navigator mode="modal">
+        <HomeStack.Screen
           name="Home"
           component={HomeScreen}
           options={{
             headerTitle: () => <Text style={styles.title}>CareShare</Text>,
           }}
         />
-        <Stack.Screen
+        <HomeStack.Screen
           name="View Challenge"
           component={ViewChallenge}
+          options={{
+            headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+          }}
         />
-        <Stack.Screen
+        {/* <HomeStack.Screen
           name="New Challenge"
           component={NewChallenge}
-        />
-      </Stack.Navigator>
+        /> */}
+      </HomeStack.Navigator>
     );
   }
 
@@ -85,7 +96,7 @@ export default function Navigator() {
 
             if (route.name === "Home") {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === "NewChallenge") {
+            } else if (route.name === "Create Challenge") {
               iconName = focused ? 'rocket' : 'rocket-outline';
             } else if (route.name === "Explore") {
               iconName = focused ? 'compass' : 'compass-outline';
@@ -95,13 +106,13 @@ export default function Navigator() {
           }
         })}
         tabBarOptions={{
-          // labelStyle: { fontSize: 20},
-          showLabel: false,
+          labelStyle: { fontSize: 10},
+          // showLabel: false,
           activeTintColor: '#2FDA77',
           inactiveTintColor: '#555555'
         }}
       >
-        <Tab.Screen name="NewChallenge" component={newChallengeScreen} />
+        <Tab.Screen name="Create Challenge" component={NewChallengeScreen} />
         <Tab.Screen name="Home" component={HomeStackScreen} />
         
         <Tab.Screen name="Explore" component={ExploreStackScreen} />

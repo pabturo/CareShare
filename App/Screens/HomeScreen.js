@@ -127,7 +127,19 @@ export default function App({ navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{
+                width: '30%',
+                // backgroundColor: 'red',
+                paddingTop: 10,
+                marginBottom: 2,
+                borderColor: '#555555',
+                borderBottomWidth: 0.5,
+                alignItems: 'center',
 
+              }}>
+        <Text style ={{color: '#555555', fontSize: 18}}>My Challenges</Text>
+      </View>
+      
       {/* List of Challenges */}
       <View style={styles.flatlist}>
         <FlatList
