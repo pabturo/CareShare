@@ -16,7 +16,6 @@ import {
   TouchableOpacity,
   LogBox,
 } from 'react-native';
-import Challenge from '../Components/Challenge.js';
 import Icon from 'react-native-vector-icons/Feather';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
@@ -24,6 +23,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Expand from 'react-native-simple-expand';
 import Checkin from './Checkin.js'
+import PostList from '../Components/PostList.js'
 
 export default function App({ navigation, route }) {
   const [checked, setChecked] = useState(false);
@@ -80,7 +80,7 @@ export default function App({ navigation, route }) {
 
   const scrollViewRef = useRef();
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.container2}>
       <View style= {styles.container_title}>
         <Image
           source= {getIconUgly()}
@@ -108,13 +108,14 @@ export default function App({ navigation, route }) {
             <Text style={styles.user_text}> Ange </Text>
           </Expand>
         </View>
-        <ScrollView 
-          style={styles.checkin} 
-          directionalLockEnabled='true' 
+        <ScrollView
+          style={styles.checkin}
+          directionalLockEnabled='true'
           ref={scrollViewRef}
-          onContentSizeChange={() => 
+          onContentSizeChange={() =>
             scrollViewRef.current.scrollToEnd({ animated: false})}
-                    >
+          nestedScrollEnabled={true}
+          >
           <Checkin/>
           <Expand value={expandCheckin} >
             <Checkin/>
@@ -129,6 +130,7 @@ export default function App({ navigation, route }) {
           onPress={expandButtonPressed2}
         />
       </View>
+      <PostList/>
       <BouncyCheckbox
         checked
         textColor="#000"
@@ -136,7 +138,7 @@ export default function App({ navigation, route }) {
         text={'Delete'}
         onPress={(checked) => deleteAndGoToList()}
       />
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -145,12 +147,14 @@ export default function App({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    flex: 1,
+    alignSelf: 'flex-start',
     width: '100%',
     backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
+  container2: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingHorizontal: 20,
   },
   container_title:{
     width: '90%',

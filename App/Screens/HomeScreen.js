@@ -83,7 +83,7 @@ export default function App({ navigation}) {
   }
   const addChallenge = async () => {
     // Deep copy of array avoids any state mutation instead of state update rerender issues
-    
+
     if (text != '') {
       let newChallenges = [...challenges];
       let obj = {
@@ -123,23 +123,20 @@ export default function App({ navigation}) {
       console.error(e)
     }
   };
-  
+
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{
-                width: '30%',
                 // backgroundColor: 'red',
                 paddingTop: 10,
                 marginBottom: 2,
                 borderColor: '#555555',
                 borderBottomWidth: 0.5,
-                alignItems: 'center',
-
               }}>
         <Text style ={{color: '#555555', fontSize: 18}}>My Challenges</Text>
       </View>
-      
+
       {/* List of Challenges */}
       <View style={styles.flatlist}>
         <FlatList
@@ -152,7 +149,7 @@ export default function App({ navigation}) {
       {/* <KeyboardAvoidingView
         style={styles.textinputrow}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        
+
         <TextInput
           style={styles.textinput}
           onChangeText={(text) => setText(text)}
@@ -194,7 +191,7 @@ const styles = StyleSheet.create({
     borderTopWidth :0.3,
     borderTopColor: '#555555',
     justifyContent: 'center'
-    
+
   },
   textinput: {
     height: 40,

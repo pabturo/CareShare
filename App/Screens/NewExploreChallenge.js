@@ -160,11 +160,11 @@ export default function App({ navigation, route }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    
-    <View style={{ 
-          flex: 1, 
+
+    <View style={{
+          flex: 1,
           alignItems: 'center',
-          justifyContent: 'center', 
+          justifyContent: 'center',
           paddingVertical:20}}>
       {challengeIcon && <Image source={getIconUgly()} style={styles.image} />}
       <Button title="Upload Image" onPress={pickImage} color='#2FDA7f' />
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
       width:'90%',
       alignItems: 'center',
       justifyContent: 'space-evenly',
-      paddingTop:0, 
+      paddingTop:0,
     },
     launch:{
       borderColor: '#2FDA7f',
@@ -404,5 +404,5 @@ const styles = StyleSheet.create({
     // height: 50,
     // width: 150,
     // },
-  
+
   });

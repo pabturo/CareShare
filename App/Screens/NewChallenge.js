@@ -148,11 +148,11 @@ export default function App({ navigation, route }) {
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    
-    <View style={{ 
-          flex: 1, 
+
+    <View style={{
+          flex: 1,
           alignItems: 'center',
-          justifyContent: 'center', 
+          justifyContent: 'center',
           paddingVertical:20}}>
       {challengeIcon && <Image source={getDefaultImage()} style={styles.image} />}
       <Button title="Upload Image" onPress={pickImage} color='#2FDA7f' />
@@ -301,7 +301,7 @@ export default function App({ navigation, route }) {
       <TouchableOpacity style={styles.launch}
         onPress={(checked) => createNewChallenge()}
       >
-      <Text style={{color: '#2FDA7f', fontSize:20}}>Launch Challenge</Text>
+      <Text style={{color: '#2FDA7f', fontSize:16}}>Launch Challenge</Text>
       </TouchableOpacity>
       </View>
     </ScrollView>
@@ -367,18 +367,18 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     borderWidth:0.1,
     borderRadius:200,
   },
   options:{
     flexDirection:'row',
-    height:50,
+    height:40,
     width:'90%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    paddingTop:0, 
+    paddingTop:0,
   },
   launch:{
     borderColor: '#2FDA7f',
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
     padding:10,
     borderRadius:100,
     borderWidth:1,
-    margin:20
+    margin:0
   }
   // picker: {
   // height: 50,
