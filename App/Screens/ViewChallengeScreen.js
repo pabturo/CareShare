@@ -56,25 +56,6 @@ export default function App({ navigation, route }) {
     setexpandButton2( (expandButton2==="chevron-down") ? "chevron-up" : "chevron-down" );
   }
 
-  const getIconUgly = () => {
-    switch(challengeInfo['cover']) {
-        case "default":
-          return require('../../assets/logo.png');
-          break;
-        case "1":
-            return require('../../assets/1.png');
-            break;
-        case "2":
-            return require('../../assets/2.png');
-            break;
-        case "3":
-            return require('../../assets/3.png');
-            break;
-        default:
-          return { uri: challengeInfo['cover'] };
-      }
-  }
-
   const [challengeInfo, setChallengeInfo] = useState([]);
   const setChallengesFromStorage = (challenges_string) => {
     setChallengeInfo(JSON.parse(challenges_string));
@@ -106,7 +87,7 @@ export default function App({ navigation, route }) {
     <ScrollView style={styles.container} contentContainerStyle={styles.container2}>
       <View style= {styles.container_title}>
         <Image
-          source= {getIconUgly()}
+          source= {{uri: challengeInfo['cover']}}
           style = {styles.iconPicture}
         />
         <View style = {{flexDirection: 'row', alignItems:'center'}}>

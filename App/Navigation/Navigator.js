@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Font
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,12 +22,13 @@ const ExploreStack = createStackNavigator();
 const NewChallengeStack = createStackNavigator();
 
 
+
 export default function Navigator() {
   const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
-    NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')
+    NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf'),
+    NunitoBold: require('../Assets/Nunito-Bold.ttf'),
   });
-
 
   function ExploreStackScreen() {
     return (

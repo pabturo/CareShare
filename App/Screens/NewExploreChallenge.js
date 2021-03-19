@@ -55,23 +55,7 @@ export default function App({ navigation, route }) {
   const [challengeVisible, setchallengeVisible] = useState(0);
   const [linkVisible, setlinkVisible] = useState(false);
   // --------image picker--------
-  const [challengeIcon, setImage] = useState("default");
-
-  const getIconUgly = () => {
-    switch(icon) {
-        case "1":
-            return require('../../assets/1.png');
-            break;
-        case "2":
-            return require('../../assets/2.png');
-            break;
-        case "3":
-            return require('../../assets/3.png');
-            break;
-        default:
-            return require('../../assets/logo.png');
-      }
-  }
+  const [challengeIcon, setImage] = useState(icon);
 
   useEffect(() => {
     (async () => {
@@ -166,7 +150,7 @@ export default function App({ navigation, route }) {
           alignItems: 'center',
           justifyContent: 'center',
           paddingVertical:20}}>
-      {challengeIcon && <Image source={getIconUgly()} style={styles.image} />}
+      {challengeIcon && <Image source={{uri: challengeIcon}} style={styles.image} />}
       <Button title="Upload Image" onPress={pickImage} color='#2FDA7f' />
     </View>
       <View style={styles.labelalign}>

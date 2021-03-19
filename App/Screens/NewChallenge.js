@@ -38,6 +38,8 @@ import CircleCheckBox from 'react-native-circle-checkbox';
 
 
 export default function App({ navigation, route }) {
+  const defaultImage = Image.resolveAssetSource(require('../../assets/logo.png')).uri
+
   const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
@@ -53,7 +55,7 @@ export default function App({ navigation, route }) {
   const [challengeVisible, setchallengeVisible] = useState(0);
   const [linkVisible, setlinkVisible] = useState(false);
   // --------image picker--------
-  const [challengeIcon, setImage] = useState("default");
+  const [challengeIcon, setImage] = useState(defaultImage);
 
   useEffect(() => {
     (async () => {
@@ -147,7 +149,7 @@ export default function App({ navigation, route }) {
       //Clearing fields
       setChallengeName('');
       setChallengeDetails('');
-      setImage('default');
+      setImage(defaultImage);
       navigation.navigate('Home');
     } else {
       alert('Challenge name and details cannot be empty');
@@ -162,12 +164,6 @@ export default function App({ navigation, route }) {
     return '#2FDA7f';
   }
 
-  const getDefaultImage = () => {
-    if (challengeIcon === "default"){
-      return require('../../assets/logo.png');
-    }
-    return { uri: challengeIcon }
-  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
@@ -176,7 +172,7 @@ export default function App({ navigation, route }) {
           alignItems: 'center',
           justifyContent: 'center',
           paddingVertical:20}}>
-      {challengeIcon && <Image source={getDefaultImage()} style={styles.image} />}
+      {challengeIcon && <Image source={{ uri: challengeIcon }} style={styles.image} />}
       <Button title="Upload Image" onPress={pickImage} color='#2FDA7f' />
     </View>
       <View style={styles.labelalign}>

@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Image
 } from 'react-native';
 
 import ExploreChallenge from '../Components/ExploreChallenge.js';
@@ -23,17 +24,17 @@ export default function App({ navigation}) {
         {
             name : "RUN RUN RUN!!!!",
             details : "Run every other day for a month.",
-            cover: "1",
+            cover: Image.resolveAssetSource(require('../../assets/1.png')).uri,
         },
         {
             name: "Love Cooking",
             details : "Cook a fancy dinner with a loved one.",
-            cover: "2",
+            cover: Image.resolveAssetSource(require('../../assets/2.png')).uri,
         },
         {
             name: "Baking Fun!",
             details : "Bake a muffin.",
-            cover: "3",
+            cover: Image.resolveAssetSource(require('../../assets/3.png')).uri,
         },
     ]);
   const [text, setText] = useState('');
@@ -70,8 +71,8 @@ export default function App({ navigation}) {
           })
             // {console.log("Clicked explore challenge");}
         }>
-        <ExploreChallenge 
-            challengeName={item.name} 
+        <ExploreChallenge
+            challengeName={item.name}
             challengeDetails={item.details}
             challengeIcon={item.cover} />
       </TouchableOpacity>
@@ -87,7 +88,7 @@ export default function App({ navigation}) {
 //   }
 //   const addChallenge = async () => {
 //     // Deep copy of array avoids any state mutation instead of state update rerender issues
-    
+
 //     if (text != '') {
 //       let newChallenges = [...challenges];
 //       let obj = {
@@ -127,7 +128,7 @@ export default function App({ navigation}) {
 //       console.error(e)
 //     }
 //   };
-  
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     borderTopWidth :0.3,
     borderTopColor: '#555555',
     justifyContent: 'center'
-    
+
   },
   textinput: {
     fontSize: 20,
