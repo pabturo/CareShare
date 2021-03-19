@@ -22,10 +22,10 @@ const NewChallengeStack = createStackNavigator();
 
 
 export default function Navigator() {
-  const [loaded, error] = useFonts({ 
+  const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf')
-  }); 
+  });
 
 
   function ExploreStackScreen() {
@@ -114,9 +114,9 @@ export default function Navigator() {
       >
         <Tab.Screen name="Create Challenge" component={NewChallengeScreen} />
         <Tab.Screen name="Home" component={HomeStackScreen} />
-        
+
         <Tab.Screen name="Explore" component={ExploreStackScreen} />
-        
+
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   },
 
   screenContainer: {
-    flex: 1, 
-    justifyContent: 'center', 
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

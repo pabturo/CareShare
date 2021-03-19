@@ -23,10 +23,14 @@ export default function App({ navigation}) {
 
   const delay = (time) => new Promise((response) => setTimeout(response, time));
 
-  const deleteChallenge = async (index) => {
-    await delay(100);
+  const deleteChallenge = async (index, key) => {
     let newChallenges = [...challenges];
     newChallenges.splice(index, 1);
+    try {
+        await AsyncStorage.removeItem(key);
+    }
+    catch(exception) {}
+    await delay(100);
     setChallenges(newChallenges);
     setStorage(newChallenges);
   };
@@ -42,7 +46,6 @@ export default function App({ navigation}) {
           navigation.navigate('View Challenge', {
             challengeIcon: item.cover,
             challengeName: item.name,
-            challengeDetails: item.details,
             deleteChallenge: deleteChallenge,
             index: index,
           })

@@ -99,6 +99,16 @@ export default function App({ navigation, route }) {
       console.error(e)
     }
   };
+
+  // working
+  const saveByKey = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   useEffect(() => {
     readChallenges();
   }, [challenges]);
@@ -120,6 +130,18 @@ export default function App({ navigation, route }) {
       };
       newChallenges.push(obj);
       setChallenges(newChallenges);
+      let testObj = {
+        name : challengeName,
+        details : challengeDetails,
+        cover: challengeIcon,
+        visibility: challengeVisible,
+        checkpoint: checkin,
+        goal: goalCount,
+        users: ['Me'],
+        checkins: [[false]],
+        posts: []
+      };
+      saveByKey(challengeName, testObj);
       setStorage(newChallenges);
 
       //Clearing fields

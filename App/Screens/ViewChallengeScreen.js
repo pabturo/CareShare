@@ -24,18 +24,15 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Expand from 'react-native-simple-expand';
 import Checkin from './Checkin.js'
 import PostList from '../Components/PostList.js'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App({ navigation, route }) {
   const [checked, setChecked] = useState(false);
 
-  const {challengeIcon, challengeName, challengeDetails, deleteChallenge, index} = route.params;
-
-  // fake variables for formatting
-  const checkpoint = 1
-  const goalCount = 2
+  const {challengeName, deleteChallenge, index} = route.params;
 
   const deleteAndGoToList = async () => {
-    await deleteChallenge(index);
+    await deleteChallenge(index, challengeName);
     navigation.navigate('Home');
   };
 
@@ -60,7 +57,7 @@ export default function App({ navigation, route }) {
   }
 
   const getIconUgly = () => {
-    switch(challengeIcon) {
+    switch(challengeInfo['cover']) {
         case "default":
           return require('../../assets/logo.png');
           break;
@@ -74,9 +71,35 @@ export default function App({ navigation, route }) {
             return require('../../assets/3.png');
             break;
         default:
-          return { uri: challengeIcon };
+          return { uri: challengeInfo['cover'] };
       }
   }
+
+  const [challengeInfo, setChallengeInfo] = useState([]);
+  const setChallengesFromStorage = (challenges_string) => {
+    setChallengeInfo(JSON.parse(challenges_string));
+  }
+  const readChallengeInfo = async () => {
+    try {
+      //const storage_challenges = await AsyncStorage.getItem({challengeName});
+      const storage_challenges = await AsyncStorage.getItem(challengeName);
+      if (storage_challenges !== null) {
+        setChallengesFromStorage(storage_challenges);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  const setStorage = async (newValue) => {
+    try {
+      await AsyncStorage.setItem(challengeName, JSON.stringify(newValue) )
+    } catch (e) {
+      console.error(e)
+    }
+  };
+  useEffect(() => {
+    readChallengeInfo();
+  }, [challengeInfo]);
 
   const scrollViewRef = useRef();
   return (
@@ -87,7 +110,7 @@ export default function App({ navigation, route }) {
           style = {styles.iconPicture}
         />
         <View style = {{flexDirection: 'row', alignItems:'center'}}>
-          <Text style={styles.text_title}>{challengeName}</Text>
+          <Text style={styles.text_title}>{challengeInfo['name']}</Text>
           <Icon.Button
             name={expandButton}
             size='30'
@@ -97,7 +120,7 @@ export default function App({ navigation, route }) {
           />
         </View>
         <Expand value={expandTitle}>
-          <Text style={styles.text_body}>About: {challengeDetails}</Text>
+          <Text style={styles.text_body}>About: {challengeInfo['details']}</Text>
         </Expand>
       </View>
       <View style={styles.container_checkin}>
