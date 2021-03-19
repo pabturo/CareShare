@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignSelf: 'flex-start',
     width: '100%',
+    height: '100%',
     backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
