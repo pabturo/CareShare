@@ -62,9 +62,8 @@ export default function App({ navigation, route }) {
   // Information to show
   const {name, details, cover, visibility, checkpoint, goal, users, checkins, posts, deleteChallenge, index} = route.params;
   const parsedUsers = JSON.parse(users);
-  const parsedCheckins = JSON.parse(checkins);
   const [parsedPost, setParsedPost] = useState(JSON.parse(posts));
-  //const [parsedCheckins, setParsedCheckins] = useState(JSON.parse(posts));
+  const [parsedCheckins, setParsedCheckins] = useState(JSON.parse(checkins));
 
   // Make new post
   const [newPostText, setNewPostText] = useState("");
@@ -92,6 +91,12 @@ export default function App({ navigation, route }) {
       setImage(result.uri);
     }
   };
+  const makeCheckin = () =>{
+    // let newCheckin = [...parsedCheckins];
+    // let myCheckin = newCheckin[0];
+    // myCheckin[myCheckin.length-1] = true;
+    // setParsedCheckins(newCheckin);
+  };
   const addPost = () => {
     if (newPostText != ''){
       if (postImage == defaultImage){
@@ -112,9 +117,7 @@ export default function App({ navigation, route }) {
       setPostView(false);
       setNewCheckin(false);
   }
-  const makeCheckin = () =>{
 
-  };
 
   // const [challengeInfo, setChallengeInfo] = useState([]);
   // const setChallengesFromStorage = (challenges_string) => {
@@ -144,6 +147,7 @@ export default function App({ navigation, route }) {
   const scrollViewRef = useRef();
   return (
     <View>
+    <Text> {parsedCheckins[0].length} </Text>
     <ScrollView style={styles.container} contentContainerStyle={styles.container2}>
       <View style= {styles.container_title}>
         <Image
@@ -183,11 +187,11 @@ export default function App({ navigation, route }) {
             scrollViewRef.current.scrollToEnd({ animated: false})}
           nestedScrollEnabled={true}
           >
-          <Checkin history={parsedCheckins[0]} checkpoint={checkpoint} goal={goal}/>
+          <Checkin history={parsedCheckins[0]} checkpoint={checkpoint}/>
           <Expand value={expandCheckin} >
             <FlatList
               data={parsedCheckins.splice(1)}
-              renderItem={({index, item}) => {return (<Checkin history={item} checkpoint={checkpoint} goal={goal}/>);}}
+              renderItem={({index, item}) => {return (<Checkin history={item} checkpoint={checkpoint}/>);}}
               keyExtractor={(index, item) => keyExtractor(index)}
             />
           </Expand>

@@ -18,6 +18,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function App({ navigation}) {
+  // const clearChallenges = async () => {
+  //   AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+  // }
+  // clearChallenges ();
+
   const [challenges, setChallenges] = useState([]);
   const [text, setText] = useState('');
 
@@ -26,10 +31,10 @@ export default function App({ navigation}) {
   const deleteChallenge = async (index, key) => {
     let newChallenges = [...challenges];
     newChallenges.splice(index, 1);
-    try {
-        await AsyncStorage.removeItem(key);
-    }
-    catch(exception) {}
+    // try {
+    //     await AsyncStorage.removeItem(key);
+    // }
+    // catch(exception) {}
     await delay(100);
     setChallenges(newChallenges);
     setStorage(newChallenges);
@@ -44,8 +49,15 @@ export default function App({ navigation}) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('View Challenge', {
-            challengeIcon: item.cover,
-            challengeName: item.name,
+            name : item.name,
+            details : item.details,
+            cover: item.cover,
+            visibility: item.visibility,
+            checkpoint: item.checkpoint,
+            goal: item.goal,
+            users: item.users,
+            checkins: item.checkins,
+            posts: item.posts,
             deleteChallenge: deleteChallenge,
             index: index,
           })
@@ -81,9 +93,7 @@ export default function App({ navigation}) {
   //   }
   // };
 
-  const clearChallenges = async () => {
-    AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
-  }
+
   const addChallenge = async () => {
     // Deep copy of array avoids any state mutation instead of state update rerender issues
 

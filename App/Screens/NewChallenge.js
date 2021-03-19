@@ -122,28 +122,67 @@ export default function App({ navigation, route }) {
   const createNewChallenge = async () => {
     if (challengeName != '' && challengeDetails != ''){
       let newChallenges = [...challenges];
+
+      let posts = [];
+      let post = {'user': 'Pablo',
+                   'content': 'Test Text only!',
+                    'pic': null
+                  };
+      posts.push(JSON.stringify(post));
+
+      post = {'user': 'Ange',
+                   'content': '',
+                    'pic':  Image.resolveAssetSource(require('../../assets/holder1.jpg')).uri
+                  };
+      posts.push(JSON.stringify(post));
+
+      post = {'user': 'Thunder',
+                   'content': 'Test Text and Image!',
+                    'pic': Image.resolveAssetSource(require('../../assets/holder2.jpg')).uri
+                  };
+      posts.push(JSON.stringify(post));
+
+
+      // let posts = [
+      //   posts:   [,
+      //     { 'user': 'Ange',
+      //       'content': '',
+      //       'pic': Image.resolveAssetSource(require('../../assets/holder1.jpg')).uri
+      //     },
+      //     { 'user': 'Thunder',
+      //       'content': 'Test Text and Image!',
+      //       'pic':Image.resolveAssetSource(require('../../assets/holder2.jpg')).uri
+      //     }]
+      // ]
+
       let obj = {
         name : challengeName,
         details : challengeDetails,
         cover: challengeIcon,
         visibility: challengeVisible,
         checkpoint: checkin,
-        goal: goalCount
+        goal: goalCount,
+        users: JSON.stringify(['Me', 'Pablo', 'Thunder', 'Ange']),
+        checkins: JSON.stringify([[true, true, true, false],
+                                  [true, true, true, true],
+                                  [true, true, false, true],
+                                  [true, true, true, false],]),
+        posts: JSON.stringify(posts)
       };
       newChallenges.push(obj);
       setChallenges(newChallenges);
-      let testObj = {
-        name : challengeName,
-        details : challengeDetails,
-        cover: challengeIcon,
-        visibility: challengeVisible,
-        checkpoint: checkin,
-        goal: goalCount,
-        users: ['Me'],
-        checkins: [[false]],
-        posts: []
-      };
-      saveByKey(challengeName, testObj);
+      // let testObj = {
+      //   name : challengeName,
+      //   details : challengeDetails,
+      //   cover: challengeIcon,
+      //   visibility: challengeVisible,
+      //   checkpoint: checkin,
+      //   goal: goalCount,
+      //   users: ['Me'],
+      //   checkins: [[false]],
+      //   posts: []
+      // };
+      // saveByKey(challengeName, testObj);
       setStorage(newChallenges);
 
       //Clearing fields

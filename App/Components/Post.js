@@ -4,21 +4,42 @@ import Icon from 'react-native-vector-icons/Feather';
 
 export default function Post(props) {
   //const { challengeIcon, challengeName } = props;
+  const info = JSON.parse(props.postContent);
   const profilePic = require('../../assets/logo.png');
-  const userName = "UserName";
-  const postText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel blandit justo, id feugiat mauris. Mauris venenatis enim sit amet eros hendrerit, malesuada volutpat sapien vestibulum.";
-  const postPic = require('../../assets/logo.png');
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.userInfo}>
-        <Image  source= {profilePic}  style = {styles.userPic}  />
-        <Text style={styles.userName}> {userName} </Text>
+  const userName = info['user'];
+  const postText = info['content'];
+  const postPic = info['pic'];
+  if (!postText)
+    return (
+      <View style={styles.container}>
+        <View style={styles.userInfo}>
+          <Image source= {profilePic}  style = {styles.userPic}  />
+          <Text style={styles.userName}> {userName} </Text>
+        </View>
+        <Image source={{ uri: postPic }} style={styles.image} />
       </View>
-      <Text style={styles.text}> {postText} </Text>
-
-    </View>
-  );
+    );
+  else if (!postPic)
+    return (
+      <View style={styles.container}>
+        <View style={styles.userInfo}>
+          <Image source= {profilePic}  style = {styles.userPic}  />
+          <Text style={styles.userName}> {userName} </Text>
+        </View>
+        <Text style={styles.text}> {postText} </Text>
+      </View>
+    );
+  else
+    return (
+      <View style={styles.container}>
+        <View style={styles.userInfo}>
+          <Image source= {profilePic}  style = {styles.userPic}  />
+          <Text style={styles.userName}> {userName} </Text>
+        </View>
+        <Text style={styles.text}> {postText} </Text>
+        <Image source={{ uri: postPic }} style={styles.image} />
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -48,4 +69,8 @@ const styles = StyleSheet.create({
     width: '100%',
     fontFamily: 'Nunito'
   },
+  image:{
+    height:200,
+    width: '100%',
+  }
 });
