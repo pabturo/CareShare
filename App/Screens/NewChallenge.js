@@ -103,13 +103,13 @@ export default function App({ navigation, route }) {
   };
 
   // working
-  const saveByKey = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, JSON.stringify(value))
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  // const saveByKey = async (key, value) => {
+  //   try {
+  //     await AsyncStorage.setItem(key, JSON.stringify(value))
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+  // }
 
   useEffect(() => {
     readChallenges();

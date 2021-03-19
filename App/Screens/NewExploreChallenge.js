@@ -118,7 +118,10 @@ export default function App({ navigation, route }) {
         cover: icon,
         visibility: challengeVisible,
         checkpoint: checkin,
-        goal: goalCount
+        goal: goalCount,
+        users: JSON.stringify(['Me']),
+        checkins: JSON.stringify([[false]]),
+        posts: JSON.stringify([])
       };
       newChallenges.push(obj);
       setChallenges(newChallenges);

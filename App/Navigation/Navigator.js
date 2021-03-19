@@ -15,6 +15,8 @@ import ExploreScreen from '../Screens/ExploreScreen';
 import { useFonts } from 'expo-font';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import {preLoadContent } from "./Preload";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,8 +24,29 @@ const ExploreStack = createStackNavigator();
 const NewChallengeStack = createStackNavigator();
 
 
-
 export default function Navigator() {
+  // const clearChallenges = async () => {
+  //   AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+  // }
+  // clearChallenges();
+  const preloadStorage = async (newValue) => {
+    try {
+      const storage_challenges = await AsyncStorage.getItem('challenges');
+      if (storage_challenges === null || storage_challenges === '[]')
+        try {
+          await AsyncStorage.setItem('challenges', JSON.stringify(newValue) )
+        } catch (e) {
+          console.error(e)
+        }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // clearChallenges();
+  const challenges = preLoadContent();
+  preloadStorage(challenges);
+
   const [loaded, error] = useFonts({
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoSemiBold: require('../Assets/Nunito-SemiBold.ttf'),

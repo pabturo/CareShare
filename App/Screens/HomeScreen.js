@@ -16,16 +16,25 @@ import Challenge from '../Components/Challenge.js';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function App({ navigation}) {
   // const clearChallenges = async () => {
   //   AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
   // }
-  // clearChallenges ();
+  const setStorage = async (newValue) => {
+    try {
+      await AsyncStorage.setItem('challenges', JSON.stringify(newValue) )
+    } catch (e) {
+      console.error(e)
+    }
+  };
+  //clearChallenges ();
+
+  //preLoadContent();
 
   const [challenges, setChallenges] = useState([]);
-  const [text, setText] = useState('');
+  //setStorage(challenges);
 
+  const [text, setText] = useState('');
   const delay = (time) => new Promise((response) => setTimeout(response, time));
 
   const deleteChallenge = async (index, key) => {
@@ -93,22 +102,22 @@ export default function App({ navigation}) {
   //   }
   // };
 
-
-  const addChallenge = async () => {
-    // Deep copy of array avoids any state mutation instead of state update rerender issues
-
-    if (text != '') {
-      let newChallenges = [...challenges];
-      let obj = {
-        name : text,
-        details : "Default"
-      };
-      newChallenges.push(obj);
-      // setChallenges(newChallenges);
-      setText('');
-      setStorage(newChallenges);
-    }
-  };
+  //
+  // const addChallenge = async () => {
+  //   // Deep copy of array avoids any state mutation instead of state update rerender issues
+  //
+  //   if (text != '') {
+  //     let newChallenges = [...challenges];
+  //     let obj = {
+  //       name : text,
+  //       details : "Default"
+  //     };
+  //     newChallenges.push(obj);
+  //     // setChallenges(newChallenges);
+  //     setText('');
+  //     setStorage(newChallenges);
+  //   }
+  // };
 
   const setChallengesFromStorage = (challenges_string) => {
     setChallenges(JSON.parse(challenges_string));
@@ -129,13 +138,6 @@ export default function App({ navigation}) {
     readChallenges();
   }, [challenges]);
 
-  const setStorage = async (newValue) => {
-    try {
-      await AsyncStorage.setItem('challenges', JSON.stringify(newValue) )
-    } catch (e) {
-      console.error(e)
-    }
-  };
 
 
   return (
