@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   text:{
     fontSize: 16,
     paddingTop: 10,
-    fontFamily: 'Nunito'
+    // fontFamily: 'Nunito'
   },
   check_on:{
     height:30,
@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
   line:{
     fontSize: 16,
     paddingTop: 30,
-    fontFamily: 'Nunito'
+    // fontFamily: 'Nunito'
   },
   goal:{
     fontSize: 16,
-    fontFamily: 'Nunito'
+    // fontFamily: 'Nunito'
   }
 });

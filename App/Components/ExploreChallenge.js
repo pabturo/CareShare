@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   checkInStatus: {
-    fontFamily:'Nunito',
+    // fontFamily:'Nunito',
     fontSize: 18,
     color: '#555555',
   },

@@ -23,7 +23,7 @@ export default function App({ navigation}) {
     const [challenges, setChallenges] = useState([
         {
             name : "RUN RUN RUN!!!!",
-            details : "Run every other day for a month.",
+            details : "Run every day for a month.",
             cover: Image.resolveAssetSource(require('../../assets/1.png')).uri,
         },
         {

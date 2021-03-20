@@ -44,6 +44,8 @@ export default function App({ navigation, route }) {
     navigation.navigate('Home');
   };
   useEffect(() => {
+    LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+    LogBox.ignoreAllLogs();//Ignore all log notifications
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }, [])
   const [expandTitle, setexpandTitle] = useState(false);
@@ -80,6 +82,12 @@ export default function App({ navigation, route }) {
       }
     })();
   }, []);
+
+  const makeCheckin = () =>{
+    return;
+
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -96,13 +104,14 @@ export default function App({ navigation, route }) {
     if (newPostText != ''){
       if (postImage == defaultImage){
         setImage(null);
+
       }
       let post = {'user': 'Me',
                    'content': newPostText,
-                    'pic': postImage
+                    'pic': postImage == defaultImage ? null : postImage,
                   };
       let newPosts = [...parsedPost];
-      newPosts.push(JSON.stringify(post));
+      newPosts.unshift(JSON.stringify(post));
       setParsedPost(newPosts);
       if (newCheckin)
         makeCheckin();
@@ -112,9 +121,7 @@ export default function App({ navigation, route }) {
       setPostView(false);
       setNewCheckin(false);
   }
-  const makeCheckin = () =>{
 
-  };
 
   // const [challengeInfo, setChallengeInfo] = useState([]);
   // const setChallengesFromStorage = (challenges_string) => {
@@ -161,7 +168,7 @@ export default function App({ navigation, route }) {
           />
         </View>
         <Expand value={expandTitle}>
-          <Text style={styles.text_body}>About: {details}</Text>
+          <Text style={styles.text_body}>{details}</Text>
         </Expand>
       </View>
       <View style={styles.container_checkin}>
@@ -219,7 +226,9 @@ export default function App({ navigation, route }) {
       <Icon.Button
         name="plus"
         size='50'
-        borderRadius='80'
+        borderRadius='100'
+        borderColor = '#2FDA7f'
+        borderWidth = '1.3'
         color='#2FDA7f'
         backgroundColor='white'
         onPress={() => setPostView(true)}
@@ -245,7 +254,9 @@ export default function App({ navigation, route }) {
               padding: 15,
               borderRadius: 10
             }}>
-            <Text style={{fontSize:20, fontFamily: 'Nunito'}}>New Post</Text>
+            <Text style={{fontSize:20, 
+              // fontFamily: 'Nunito'
+              }}>New Post</Text>
             <View style={{
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -264,15 +275,18 @@ export default function App({ navigation, route }) {
               <Button
                 onPress={addPost}
                 title="Post"
+                color='#2FDA7f'
               />
               <Button
                 onPress={() => setPostView(false)}
                 title="Cancel"
+                color='#2FDA7f'
               />
               <BouncyCheckbox
-                newCheckin
+                // newCheckin
                 textColor="#000"
-                fillColor="orange"
+                fillColor="#2FDA7f"
+                borderColor="#555555"
                 text={'Check in?'}
                 onPress={() => setNewCheckin(!newCheckin)}
               />
@@ -335,14 +349,14 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   text_title: {
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: 'Nunito',
     textAlign: 'center',
     paddingLeft: 25
   },
   text_body: {
-    fontSize: 20,
-    fontFamily: 'Nunito',
+    fontSize: 18,
+    // fontFamily: 'Nunito',
     textAlign: 'center',
     paddingBottom: 10
   },

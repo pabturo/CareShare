@@ -71,7 +71,7 @@ export default function App({ navigation}) {
             index: index,
           })
         }>
-        <Challenge challengeName={item.name} challengeIcon={item.cover}/>
+        <Challenge challengeName={item.name} challengeIcon={item.cover} challengeDetails = {item.details}/>
       </TouchableOpacity>
     );
   };

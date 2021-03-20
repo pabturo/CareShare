@@ -124,8 +124,8 @@ export default function App({ navigation, route }) {
       let newChallenges = [...challenges];
 
       let posts = [];
-      let post = {'user': 'Pablo',
-                   'content': 'Test Text only!',
+      let post = {'user': 'Me',
+                   'content': 'Text only!',
                     'pic': null
                   };
       posts.push(JSON.stringify(post));
@@ -137,7 +137,7 @@ export default function App({ navigation, route }) {
       posts.push(JSON.stringify(post));
 
       post = {'user': 'Thunder',
-                   'content': 'Test Text and Image!',
+                   'content': 'Text and Image!',
                     'pic': Image.resolveAssetSource(require('../../assets/holder2.jpg')).uri
                   };
       posts.push(JSON.stringify(post));
@@ -170,6 +170,7 @@ export default function App({ navigation, route }) {
         posts: JSON.stringify(posts)
       };
       newChallenges.push(obj);
+
       setChallenges(newChallenges);
       // let testObj = {
       //   name : challengeName,
@@ -188,6 +189,11 @@ export default function App({ navigation, route }) {
       //Clearing fields
       setChallengeName('');
       setChallengeDetails('');
+      setTags('');
+      setCheckin(0);
+      setchallengeVisible(0);
+      setgoalCount(-1);
+
       setImage(defaultImage);
       navigation.navigate('Home');
     } else {
@@ -252,7 +258,12 @@ export default function App({ navigation, route }) {
           backgroundColor="#fff"
           onPress={()=>setlinkVisible(true)}
         >
-        <Text style={{fontFamily: 'Nunito', fontSize:16, color:'#2FDA7f'}}> Invite friends </Text>
+          <Text style={{
+            // fontFamily: 'Nunito', 
+            fontSize:16, 
+            color:'#2FDA7f'}}> 
+            Invite friends 
+          </Text>
         </Icon.Button>
       </View>
       <Modal
@@ -273,7 +284,12 @@ export default function App({ navigation, route }) {
                 alignItems: 'center',
                 borderRadius: 10
               }}>
-              <Text style={{fontSize:20, fontFamily: 'Nunito'}}>Invitation link is copied!</Text>
+                <Text style={{
+                  fontSize:20, 
+                  // fontFamily: 'Nunito'
+                  }}>
+                  Invitation link is copied!
+                </Text>
               <Button
                 onPress={() => { setlinkVisible(false) }}
                 title="Close"
@@ -409,7 +425,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 1,
     color: '#555555',
-    fontFamily: 'Nunito',
+    // fontFamily: 'Nunito',
   },
   goal: {
     fontSize: 15,
@@ -420,7 +436,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#aaa',
     color: '#555555',
-    fontFamily: 'Nunito',
+    // fontFamily: 'Nunito',
     borderRadius: 5
   },
   image: {

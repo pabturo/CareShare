@@ -25,10 +25,10 @@ const NewChallengeStack = createStackNavigator();
 
 
 export default function Navigator() {
-  // const clearChallenges = async () => {
-  //   AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
-  // }
-  // clearChallenges();
+  const clearChallenges = async () => {
+    AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+  }
+  // clearChallenges(); //comment out to clear Async Storage
   const preloadStorage = async (newValue) => {
     try {
       const storage_challenges = await AsyncStorage.getItem('challenges');
@@ -68,6 +68,7 @@ export default function Navigator() {
           component={NewExploreChallenge}
           options={{
             headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+            headerTintColor: '#2FDA77'
           }}
         />
       </ExploreStack.Navigator>
@@ -102,6 +103,7 @@ export default function Navigator() {
           component={ViewChallenge}
           options={{
             headerTitle: () => <Text style={styles.title}>CareShare</Text>,
+            headerTintColor: '#2FDA77'
           }}
         />
         {/* <HomeStack.Screen

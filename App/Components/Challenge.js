@@ -15,7 +15,7 @@ export default function Challenge(props) {
     Nunito: require('../Assets/Nunito-Regular.ttf'),
     NunitoBold: require('../Assets/Nunito-Bold.ttf')
   });
-  const {challengeIcon, challengeName } = props;
+  const {challengeIcon, challengeName, challengeDetails} = props;
 
   const getIconUgly = () => {
     switch(challengeIcon) {
@@ -43,7 +43,7 @@ export default function Challenge(props) {
         />
         <View style={styles.groupText}>
           <Text style={styles.challengeName}>{challengeName}</Text>
-          <Text style={styles.checkInStatus}>{'Make sure to check in!'}</Text>
+          <Text style={styles.checkInStatus}>{challengeDetails}</Text>
         </View>
     </View>
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   checkInStatus: {
-    fontFamily:'Nunito',
+    // fontFamily:'Nunito',
     fontSize: 18,
     color: '#555555',
   },
